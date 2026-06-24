@@ -282,6 +282,8 @@ class _KoreaMapWidgetState extends State<KoreaMapWidget> with TickerProviderStat
   }
 }
 
+final Map<String, TextPainter> _globalTextPainterCache = {};
+
 class _KoreaMapPainter extends CustomPainter {
   final List<RegionPath> regions;
   final Set<String> visitedIds;
@@ -292,7 +294,6 @@ class _KoreaMapPainter extends CustomPainter {
   final String? tappedRegionId;
   final double tapScale;
   final Map<String, Animation<double>> fadeAnimations;
-  final Map<String, TextPainter> _textPainterCache = {};
 
   _KoreaMapPainter({
     required this.regions,
@@ -308,7 +309,7 @@ class _KoreaMapPainter extends CustomPainter {
 
   TextPainter _getTextPainter(String text, double fontSize) {
     final key = '$text-$fontSize';
-    return _textPainterCache.putIfAbsent(key, () {
+    return _globalTextPainterCache.putIfAbsent(key, () {
       final tp = TextPainter(
         text: TextSpan(
           text: text,
