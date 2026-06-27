@@ -357,23 +357,81 @@ class _PinRecordScreenState extends ConsumerState<PinRecordScreen> {
   Widget _buildEmptyView() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(32.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.add_photo_alternate_outlined,
-                size: 64, color: Colors.grey[400]),
-            const SizedBox(height: 16),
-            const Text(
-              '사진을 추가해 이 지역의\n여행을 기록해보세요.',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            // 아이콘 영역
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.add_photo_alternate_outlined,
+                size: 48,
+                color: Colors.grey[400],
+              ),
             ),
             const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: _isLoading ? null : _pickAndUploadNew,
-              icon: const Icon(Icons.add_photo_alternate),
-              label: const Text('사진 추가'),
+
+            // 제목
+            const Text(
+              '아직 기록이 없어요',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // 설명
+            Text(
+              '사진을 추가해\n이 지역의 여행을 기록해보세요.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[500],
+                height: 1.6,
+              ),
+            ),
+            const SizedBox(height: 32),
+
+            // 버튼
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _isLoading ? null : _pickAndUploadNew,
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: _isLoading
+                    ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+                    : const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add_photo_alternate_outlined, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      '사진 추가하기',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
