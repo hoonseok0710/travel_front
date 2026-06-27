@@ -73,7 +73,11 @@ class ProfileScreen extends ConsumerWidget {
             ListTile(
               leading: const Icon(Icons.email_outlined),
               title: const Text('이메일'),
-              subtitle: Text(user.email),
+              subtitle: Text(
+                user.email.startsWith('kakao_') && user.email.endsWith('@kakao.com')
+                    ? '카카오 로그인 유저입니다.'
+                    : user.email,
+              ),
             ),
             const Divider(),
 
